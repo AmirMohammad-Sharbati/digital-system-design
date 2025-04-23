@@ -1,0 +1,9 @@
+module decoder24 (input a1, a0, output q3, q2, q1, q0)
+	always @(*)
+	initial
+		q0 = ~a0 & ~a1;
+		q1 = a0 & ~a1;
+		q2 = ~a0 & a1;
+		q3 = a0 & a1;
+	end
+endmodule
