@@ -1,13 +1,13 @@
-Analysis & Synthesis Status : Successful - Sat Apr 26 22:31:55 2025
+Analysis & Synthesis Status : Successful - Sat Apr 26 22:46:39 2025
 Quartus II 64-Bit Version : 13.1.0 Build 162 10/23/2013 SJ Web Edition
 Revision Name : shift_and_rotate
-Top-level Entity Name : SR_FF
+Top-level Entity Name : shift_rotate_2
 Family : Cyclone IV GX
-Total logic elements : 10
-    Total combinational functions : 10
-    Dedicated logic registers : 2
-Total registers : 2
-Total pins : 7
+Total logic elements : 4
+    Total combinational functions : 4
+    Dedicated logic registers : 1
+Total registers : 1
+Total pins : 9
 Total virtual pins : 0
 Total memory bits : 0
 Embedded Multiplier 9-bit elements : 0
