@@ -3,6 +3,7 @@ source_file = 1, C:/Users/ASUS/OneDrive/Desktop/university/4/DSD/T1/T1_2/all_qua
 source_file = 1, C:/Users/ASUS/OneDrive/Desktop/university/4/DSD/T1/T1_2/all_quartus_files/shift_rotate_TB.v
 source_file = 1, C:/Users/ASUS/OneDrive/Desktop/university/4/DSD/T1/T1_2/all_quartus_files/SR_FF.v
 source_file = 1, C:/Users/ASUS/OneDrive/Desktop/university/4/DSD/T1/T1_2/all_quartus_files/shift_rotate_2.v
+source_file = 1, C:/Users/ASUS/OneDrive/Desktop/university/4/DSD/T1/T1_2/all_quartus_files/shift_rotate_TB_2.v
 source_file = 1, C:/Users/ASUS/OneDrive/Desktop/university/4/DSD/T1/T1_2/all_quartus_files/db/shift_and_rotate.cbx.xml
 design_name = shift_rotate_2
 instance = comp, \q[0]~output , q[0]~output, shift_rotate_2, 1
