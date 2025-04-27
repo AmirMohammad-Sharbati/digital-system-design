@@ -1,5 +1,5 @@
 module SR_FF(input wire S, R, CLK, SET, CLR,
-				output reg Q, wire Qn);
+				output reg Q, output wire Qn);
 	always @(negedge CLK, posedge SET, posedge CLR) begin
 		if (CLR) 
 			Q <= 0;
