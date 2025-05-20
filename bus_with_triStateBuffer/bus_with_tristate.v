@@ -19,8 +19,7 @@ module bus_with_tristate #(paramter N = 8)(
   // Device 2’s tri‐state driver
   tristate_buf #(.N(N)) ts_buffer2 (.data_in (data_in_2), .oe (g2), .bi_data (bi_data));
 
-  // Both devices always “read” the bus when they’re not driving
-  assign data_out_1 = bi_data;
-  assign data_out_2 = bi_data;
-
+  // Devices “read” the bus when another device is driving
+  assign data_out_1 = g2 ? bi_data : data_out_1;
+  assign data_out_2 = g1 ? bi_data : data_out_2;
 endmodule
