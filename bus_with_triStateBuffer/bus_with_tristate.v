@@ -1,10 +1,10 @@
-module bus_with_tristate #(paramter N = 8)(
+module bus_with_tristate #(parameter N = 8)(
   input wire clk, rst,
 
   // device1 and device2 interfaces
   input wire [N-1:0] data_in_1, data_in_2,  // what device writes on bus
   input wire req1, req2,			              // device wants to drive
-  output wire[N-1:0] data_out_1, data_out_2,// what device reads from bus
+  output wire[N-1:0] data_out_1, data_out_2// what device reads from bus
 );
 
   wire [N-1:0] bi_data;
