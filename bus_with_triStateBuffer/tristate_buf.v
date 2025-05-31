@@ -4,7 +4,7 @@ module tristate_buf #(parameter N = 8)( // 8 is default value of N, can be overr
 	inout wire [N-1:0] bi_data		// Shared bus 
 );
 	
-	assign bi_date = oe ? data_in : {N{1'bz}};
 	// If oe is 1, drive the bus with data_in. Else output is Z (high-impedance)
+	assign bi_data = oe ? data_in : {N{1'bz}};
 
 endmodule

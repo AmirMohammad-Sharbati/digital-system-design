@@ -12,9 +12,18 @@ module bus_controller (
 		end 
 		
 		else begin	 // simple priority: if both request, 1 wins
-      		if      (req1) grant1 <= 1; grant2 <= 0;
-      		else if (req2) grant1 <= 0; grant2 <= 1;
-      		else           grant1 <= 0; grant2 <= 0;
+      		if (req1) begin
+				grant1 <= 1;
+				grant2 <= 0;
+			end
+      		else if (req2) begin
+				grant1 <= 0;
+				grant2 <= 1;
+			end
+      		else begin
+				grant1 <= 0;
+				grant2 <= 0;
+			end
 		end
 	end
 endmodule
