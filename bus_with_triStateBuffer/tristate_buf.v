@@ -5,6 +5,6 @@ module tristate_buf #(parameter N = 8)( // 8 is default value of N, can be overr
 );
 	
 	// If oe is 1, drive the bus with data_in. Else output is Z (high-impedance)
-	assign bi_data = oe ? data_in : {N{1'bz}};
+	assign  bi_data = oe ? data_in : {N{1'bz}};
 
 endmodule

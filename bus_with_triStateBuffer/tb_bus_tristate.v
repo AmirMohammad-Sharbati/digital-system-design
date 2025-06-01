@@ -1,4 +1,4 @@
-module tb_two_device_bus;
+module tb_bus_tristate;
   parameter N = 8;
   reg clk, rst;
   reg req1, req2;
@@ -17,23 +17,23 @@ module tb_two_device_bus;
 
   initial begin
     $dumpfile("bus_wave.vcd"); // For testing with Icarus
-    $dumpvars(0, tb_two_device_bus); 
+    $dumpvars(0, tb_bus_tristate); 
 
     $monitor("t=%0t bus=%h dout1=%h dout2=%h",
              $time, dut.bi_data, dout1, dout2);
 
     rst = 1; req1 = 0; req2 = 0; din1 = 8'hAA; din2 = 8'h55;
-    #12 rst = 0;
+    rst = 0;
 
     // Device 1 drives
-    #10 req1 = 1; req2 = 0;
-    #20 req1 = 0;
+    req1 = 1; req2 = 0;
+    req1 = 0;
     // Bus should read 0xAA at both dout1 and dout2
 
     // Device 2 drives
-    #10 req2 = 1;
-    #20 req2 = 0;
+    req2 = 1;
+    req2 = 0;
     // Bus should read 0x55 now
-    #10 $finish;
+    $finish;
   end
 endmodule
