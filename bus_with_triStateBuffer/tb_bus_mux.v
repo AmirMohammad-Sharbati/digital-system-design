@@ -7,7 +7,7 @@ module tb_bus_mux;
 
     bus_wit_mux #(N) bus_mux(
         .data_in_1(data_in_1), .data_in_2(data_in_2),
-        .clk(clk), .sel(select),
+        .clk(clk), .select(select),
         .bus(bus), .data_out_1(dout1), .data_out_2(dout2)
     );
 
@@ -21,12 +21,17 @@ module tb_bus_mux;
         $monitor("t=%0t bus=%h dout1=%h dout2=%h",
                 $time, bus_mux.bus, dout1, dout2);
 
-        #10 select = 0; data_in_1 = 8'hA2; data_in_2 = 8'h9C;
-        #10 select = 1;
-        #10 select = 0;
-        #10 select = 1;
-        #10 select = 1; data_in_1 = 8'h54; data_in_2 = 8'h90;
-        #10 select = 0;
-        #10 $finish;
+        select = 0; 
+        data_in_1 = {{(N-8){1'b0}}, 8'hA2}; 
+        data_in_2 = {{(N-8){1'b0}}, 8'h9C};
+
+        #20 select = 1;
+        #20 select = 0;
+        #20 select = 1;
+        #20 select = 1;
+        data_in_1 = {{(N-8){1'b0}}, 8'h54}; 
+        data_in_2 = {{(N-8){1'b0}}, 8'h83};
+        #20 select = 0;
+        #20 $finish;
     end
 endmodule

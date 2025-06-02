@@ -22,18 +22,25 @@ module tb_bus_tristate;
     $monitor("t=%0t bus=%h dout1=%h dout2=%h",
              $time, dut.bi_data, dout1, dout2);
 
-    rst = 1; req1 = 0; req2 = 0; din1 = 8'hAA; din2 = 8'h55;
-    rst = 0;
+    rst = 1; req1 = 0; req2 = 0; 
+    din1 = {{(N-8){1'b0}}, 8'hAA};
+    din2 = {{(N-8){1'b0}}, 8'h55};
+    
+    #20 rst = 0; req1 = 1;
 
-    // Device 1 drives
-    req1 = 1; req2 = 0;
-    req1 = 0;
-    // Bus should read 0xAA at both dout1 and dout2
+    #20 req1 = 1; req2 = 0;
+    din1 = {{(N-8){1'b0}}, 8'hE5};
+   
+    #20 req2 = 1; // priority is given to the first
 
-    // Device 2 drives
-    req2 = 1;
-    req2 = 0;
-    // Bus should read 0x55 now
-    $finish;
+    #20 req1 = 0;
+    #20 din2 = 8'h61;
+    #20 req1 = 1;
+    din1 = {{(N-8){1'b0}}, 8'hcc};
+
+    #20 req2 = 0;
+    #20 req1 = 0;
+
+    #20 $finish;
   end
 endmodule

@@ -23,6 +23,8 @@ module bus_with_tristate #(parameter N = 8)(
     wire [N-1:0] bi_data;
     wire         g1, g2;
 
+    reg [N-1:0] data_out_1_reg, data_out_2_reg;
+
     // Instantiate controller
     bus_controller controller (.clk(clk), .rst(rst), .req1(req1), .req2(req2), .grant1(g1), .grant2(g2));
 
@@ -30,8 +32,8 @@ module bus_with_tristate #(parameter N = 8)(
     genvar i;
     generate
         for (i = 0; i < N; i = i + 1) begin : ts_buf_gen_1
-            bufif1 #(tri_max_rise: tri_typ_rise : tri_min_rise,
-                    tri_max_fall:tri_typ_fall : tri_min_fall,
+            bufif1 #(tri_max_rise: tri_typ_rise: tri_min_rise,
+                    tri_max_fall: tri_typ_fall: tri_min_fall,
                     tri_max_turnoff: tri_typ_turnoff : tri_min_turnoff) 
                     ts_buffer1 (bi_data[i], data_in_1[i], g1);
         end
@@ -41,13 +43,23 @@ module bus_with_tristate #(parameter N = 8)(
     generate
         for (i = 0; i < N; i = i + 1) begin : ts_buf_gen_2
             bufif1 #(tri_max_rise: tri_typ_rise : tri_min_rise,
-                    tri_max_fall: ri_typ_fall : tri_min_fall,
+                    tri_max_fall: tri_typ_fall : tri_min_fall,
                     tri_max_turnoff: tri_typ_turnoff : tri_min_turnoff) 
                     ts_buffer2 (bi_data[i], data_in_2[i], g2);
         end
     endgenerate
 
     // Devices “read” the bus when another device is driving
-    assign data_out_1 = g2 ? bi_data : data_out_1;
-    assign data_out_2 = g1 ? bi_data : data_out_2;
+    always @(bi_data) begin
+      if (g2)
+        data_out_1_reg <= bi_data;
+    end
+
+    always @(bi_data) begin
+      if (g1)
+        data_out_2_reg <= bi_data;
+    end
+
+    assign data_out_1 = data_out_1_reg;
+    assign data_out_2 = data_out_2_reg;
 endmodule
