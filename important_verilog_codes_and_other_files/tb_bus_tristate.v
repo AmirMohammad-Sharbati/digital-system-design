@@ -16,11 +16,11 @@ module tb_bus_tristate;
   always #5 clk = ~clk;
 
   initial begin
-    $dumpfile("bus_wave.vcd"); // For testing with Icarus
+    $dumpfile("bus_tristate_wave.vcd"); // For testing with Icarus
     $dumpvars(0, tb_bus_tristate); 
 
-    $monitor("t=%0t bus=%h dout1=%h dout2=%h",
-             $time, dut.bi_data, dout1, dout2);
+    $monitor("t=%0t g1=%d g2=%d bus=%h din1=%h din2=%h dout1=%h dout2=%h",
+             $time, dut.g1, dut.g2, dut.bi_data, din1, din2, dout1, dout2);
 
     rst = 1; req1 = 0; req2 = 0; 
     din1 = {{(N-8){1'b0}}, 8'hAA};

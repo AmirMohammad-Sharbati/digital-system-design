@@ -3,7 +3,7 @@ module bus_with_tristate #(parameter N = 8)(
 
     // device1 and device2 interfaces
     input wire [N-1:0] data_in_1, data_in_2,  // what device writes on bus
-    input wire req1, req2,			              // device wants to drive
+    input wire req1, req2,			          // device wants to drive
     output wire[N-1:0] data_out_1, data_out_2 // what device reads from bus
 );
 
@@ -32,9 +32,9 @@ module bus_with_tristate #(parameter N = 8)(
     genvar i;
     generate
         for (i = 0; i < N; i = i + 1) begin : ts_buf_gen_1
-            bufif1 #(tri_max_rise: tri_typ_rise: tri_min_rise,
-                    tri_max_fall: tri_typ_fall: tri_min_fall,
-                    tri_max_turnoff: tri_typ_turnoff : tri_min_turnoff) 
+            bufif1 #(tri_min_rise: tri_typ_rise: tri_max_rise,
+                    tri_min_fall: tri_typ_fall: tri_max_fall,
+                    tri_min_turnoff: tri_typ_turnoff : tri_max_turnoff) 
                     ts_buffer1 (bi_data[i], data_in_1[i], g1);
         end
     endgenerate
@@ -42,9 +42,9 @@ module bus_with_tristate #(parameter N = 8)(
     // Device 2’s tri‐state driver
     generate
         for (i = 0; i < N; i = i + 1) begin : ts_buf_gen_2
-            bufif1 #(tri_max_rise: tri_typ_rise : tri_min_rise,
-                    tri_max_fall: tri_typ_fall : tri_min_fall,
-                    tri_max_turnoff: tri_typ_turnoff : tri_min_turnoff) 
+            bufif1 #(tri_min_rise: tri_typ_rise : tri_max_rise,
+                    tri_min_fall: tri_typ_fall : tri_max_fall,
+                    tri_min_turnoff: tri_typ_turnoff : tri_max_turnoff) 
                     ts_buffer2 (bi_data[i], data_in_2[i], g2);
         end
     endgenerate

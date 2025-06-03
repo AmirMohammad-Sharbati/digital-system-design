@@ -18,8 +18,8 @@ module tb_bus_mux;
         $dumpfile("bus_mux_wave.vcd"); // For testing with Icarus
         $dumpvars(0, tb_bus_mux); 
 
-        $monitor("t=%0t bus=%h dout1=%h dout2=%h",
-                $time, bus_mux.bus, dout1, dout2);
+        $monitor("t=%0t select=%d bus=%h dout1=%h dout2=%h",
+                $time, select, bus_mux.bus, dout1, dout2);
 
         select = 0; 
         data_in_1 = {{(N-8){1'b0}}, 8'hA2}; 
@@ -27,7 +27,6 @@ module tb_bus_mux;
 
         #20 select = 1;
         #20 select = 0;
-        #20 select = 1;
         #20 select = 1;
         data_in_1 = {{(N-8){1'b0}}, 8'h54}; 
         data_in_2 = {{(N-8){1'b0}}, 8'h83};

@@ -36,19 +36,20 @@ module bus_wit_mux #(parameter N = 8)(
     reg [N-1:0] data_out_1_reg, data_out_2_reg;
     // simple 2‑to‑1 multiplexer
     wire not_select;
-    not #(not_max_rise: not_typ_rise: not_min_rise,
-          not_max_fall: not_typ_fall: not_min_fall) (not_select, select);
+    not #(not_min_rise: not_typ_rise: not_max_rise,
+          not_min_fall: not_typ_fall: not_max_fall) (not_select, select);
+    // for checking this for each bit we can use this in the loop, but this is another approach
 
     genvar i;
     generate
       for (i = 0; i < N; i = i + 1) begin : mux_bits
         wire a1, a2;
-        and #(and_max_rise: and_typ_rise: and_min_rise,
-              and_max_fall: and_typ_fall: and_min_fall) (a1, not_select, data_in_1[i]);
-        and #(and_max_rise: and_typ_rise: and_min_rise,
-              and_max_fall: and_typ_fall: and_min_fall) (a2, select, data_in_2[i]);
-        or  #(or_max_rise: or_typ_rise: or_min_rise,
-              or_max_fall: or_typ_fall: or_min_fall) (bus[i], a1, a2);
+        and #(and_min_rise: and_typ_rise: and_max_rise,
+              and_min_fall: and_typ_fall: and_max_fall) (a1, not_select, data_in_1[i]);
+        and #(and_min_rise: and_typ_rise: and_max_rise,
+              and_min_fall: and_typ_fall: and_max_fall) (a2, select, data_in_2[i]);
+        or  #(or_min_rise: or_typ_rise: or_max_rise,
+              or_min_fall: or_typ_fall: or_max_fall) (bus[i], a1, a2);
       end
     endgenerate
 
