@@ -54,3 +54,4 @@ module csa_16 (input [15:0] A, B, input c_in, output [15:0] sum, output c_out);
     csa_4 csa3 (A[11:8], B[11:8], c2, sum[11:8], c3);
     csa_4 csa4 (A[15:12], B[15:12], c3, sum[15:12], c_out);
 endmodule
+
