@@ -1,6 +1,6 @@
-module shift_and_add_mul_8 (input signed [7:0] A, B, output signed[15:0] result);
-    reg signed [15:0] product, A_shift;
-    reg signed [7:0] B_shift;
+module shift_and_add_mul_8 (input [7:0] A, B, output [15:0] result);
+    reg [15:0] product, A_shift;
+    reg [7:0] B_shift;
     integer i;
 
     always @(*) begin
@@ -21,16 +21,16 @@ endmodule
 
 
 module karatsuba_mul_16 (input signed [15:0] A, B, output signed [15:0] result);
-    wire signed [15:0] z0, z1, z2, z3;
+    wire [15:0] z0, z1, z2, z3;
     
-    wire signed [7:0] A_H = A[15:8];
-    wire signed [7:0] A_L = A[7:0];
-    wire signed [7:0] B_H = B[15:8];
-    wire signed [7:0] B_L = B[7:0];
+    wire [7:0] A_H = A[15:8];
+    wire [7:0] A_L = A[7:0];
+    wire [7:0] B_H = B[15:8];
+    wire [7:0] B_L = B[7:0];
 
     shift_and_add_mul_8 mul1 (A_L, B_L, z0);
     shift_and_add_mul_8 mul2 (A_H, B_H, z2);
-    
+
     shift_and_add_mul_8 mul3 (A_H + A_L, B_H + B_L, z3);
     assign z1 = z3 - (z0 + z2);
 
