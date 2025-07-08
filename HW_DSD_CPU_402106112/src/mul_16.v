@@ -29,7 +29,7 @@ module shift_and_add_mul_8 (
             A_shift = A_shift <<< 1; // arithmetic shift
             B_shift = B_shift >>> 1;
             counter <= counter + 1;
-            if (counter == 8) begin
+            if (counter == 7) begin
                 done <= 1;
                 start_calc_flag <= 0;
                 result <= product;
@@ -66,12 +66,15 @@ module karatsuba_mul_16 (
             case (state)
                 0: begin
                     if (start) begin
+                        done <= 0;
+                        result <= 0;
                         mul_A <= A[7:0];
                         mul_B <= B[7:0];
                         mul_start <= 1;
                         state <= 1;  // z0
                     end
                 end
+                
                 1 : begin
                     mul_start <= 0;
                     if (mul_done) begin
@@ -105,11 +108,6 @@ module karatsuba_mul_16 (
                 4: begin // Final computation
                     result <= (z2 <<< 16) + (z1 <<< 8) + z0;
                     done <= 1;
-                    state <= 5;
-                end
-
-                5: begin
-                    done <= 0;  // After 1 cycle, it is better to done becomes 0
                     state <= 0;
                 end
             endcase
