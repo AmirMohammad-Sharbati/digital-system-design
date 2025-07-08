@@ -7,7 +7,7 @@ module mul_16_tb ();
     wire signed [15:0] exp;
     assign exp = A*B;
     reg error_flag;
-    integer i,j;
+    integer i, j;
 
     initial begin
         $dumpfile("mul.vcd");
@@ -28,7 +28,7 @@ module mul_16_tb ();
         end
 
         if (error_flag == 1) $display ("Errororrororororororor");
-        else $display (" ====== Alhamdulillah, the MUL code has no errors. ======"); // It tooks about 7 seconds
+        else $display (" ====== Fortunately, the MUL code has no errors. ======"); // It tooks about 7 seconds
         $finish;
     end
 endmodule
