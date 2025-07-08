@@ -1,9 +1,11 @@
-module div_16 (input clk, reset, start, 
-               input signed [15:0] dividend, 
-               input signed [15:0] divisor, 
-               output reg signed [15:0] quotient, 
-               output reg signed [15:0] remainder,
-               output reg done);
+module div_16 (
+    input clk, reset, start, 
+    input signed [15:0] dividend, 
+    input signed [15:0] divisor, 
+    output reg signed [15:0] quotient, 
+    output reg signed [15:0] remainder,
+    output reg done
+);
     
     reg [4:0] counter;
     reg [15:0] abs_dividend, abs_divisor;
@@ -46,8 +48,7 @@ module div_16 (input clk, reset, start,
             end else quotient[0] = 1;
 
             counter = counter + 1;
-            end
-            
-        end
+            end 
+        end else done <= 0;
     end
 endmodule
