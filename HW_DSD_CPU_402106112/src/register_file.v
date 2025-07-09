@@ -6,7 +6,7 @@ module register_file (
     output reg [15:0] read_data_1, read_data_2
 );
 
-    reg [15:0] registers[3:0];
+    reg [15:0] registers[3:0]; // Small Register File => [3:0] or [0:3], either is fine
 
     // Write is done on rising edge of clock 
     integer i;
