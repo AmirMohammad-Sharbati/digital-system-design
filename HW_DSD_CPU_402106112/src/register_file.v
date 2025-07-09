@@ -8,8 +8,9 @@ module register_file (
 
     reg [15:0] registers[3:0];
 
-    // Write is done on rising edge of clock
-    always @(posedge clk, posedge reset) begin
+    // Write is done on rising edge of clock 
+    integer i;
+    always @(posedge clk) begin
         if (reset) begin
             for (i = 0; i < 4; i = i + 1)
                 registers[i] <= 16'd0;
