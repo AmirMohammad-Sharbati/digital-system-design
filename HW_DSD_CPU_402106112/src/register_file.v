@@ -2,11 +2,11 @@ module register_file (
     input clk, reset, 
     input write_enable, 
     input [1:0] write_reg_num, read_reg_1_num, read_reg_2_num,
-    input [15:0] write_data,
-    output reg [15:0] read_data_1, read_data_2
+    input signed [15:0] write_data,
+    output reg signed [15:0] read_data_1, read_data_2
 );
 
-    reg [15:0] registers[3:0]; // Small Register File => [3:0] or [0:3], either is fine
+    reg signed [15:0] registers[3:0]; // Small Register File => [3:0] or [0:3], either is fine
 
     // Write is done on rising edge of clock 
     integer i;

@@ -13,7 +13,7 @@ module memory (
     always @(posedge clk) begin
         if (write_enable) 
             mem[address] <= write_data;
-        else if (read_enable)
+        else if (read_enable) 
             read_data <= mem[address]; 
     end
 endmodule

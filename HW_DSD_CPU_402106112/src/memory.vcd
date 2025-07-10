@@ -1,0 +1,129 @@
+$date
+	Thu Jul 10 19:25:25 2025
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module memory_tb $end
+$var wire 16 ! read_data [15:0] $end
+$var parameter 32 " CLK_PERIOD $end
+$var reg 16 # address [15:0] $end
+$var reg 1 $ clk $end
+$var reg 1 % read_enable $end
+$var reg 16 & write_data [15:0] $end
+$var reg 1 ' write_enable $end
+$scope module mem_inst $end
+$var wire 16 ( address [15:0] $end
+$var wire 1 $ clk $end
+$var wire 1 % read_enable $end
+$var wire 16 ) write_data [15:0] $end
+$var wire 1 ' write_enable $end
+$var parameter 48 * MEM_DEPTH $end
+$var reg 16 + read_data [15:0] $end
+$upscope $end
+$scope task read_mem $end
+$var reg 16 , addr [15:0] $end
+$upscope $end
+$scope task write_mem $end
+$var reg 16 - addr [15:0] $end
+$var reg 16 . data [15:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+b10000000000000000 *
+b10 "
+$end
+#0
+$dumpvars
+bx .
+bx -
+bx ,
+bx +
+b0 )
+b0 (
+0'
+b0 &
+0%
+0$
+b0 #
+bx !
+$end
+#1
+1$
+#2
+0$
+b1111101100101110 &
+b1111101100101110 )
+b1010 #
+b1010 (
+1'
+b1111101100101110 .
+b1010 -
+#3
+1$
+#4
+0$
+b1011000101110 &
+b1011000101110 )
+b1101110 #
+b1101110 (
+b1011000101110 .
+b1101110 -
+#5
+1$
+#6
+0$
+b10011100001111 &
+b10011100001111 )
+b10010110000 #
+b10010110000 (
+b10011100001111 .
+b10010110000 -
+#7
+1$
+#8
+0$
+b1010 #
+b1010 (
+1%
+b1010 ,
+0'
+#9
+b1111101100101110 !
+b1111101100101110 +
+1$
+#10
+0$
+b1101110 #
+b1101110 (
+b1101110 ,
+#11
+b1011000101110 !
+b1011000101110 +
+1$
+#12
+0$
+b10010110000 #
+b10010110000 (
+b10010110000 ,
+#13
+b10011100001111 !
+b10011100001111 +
+1$
+#14
+0$
+b1111101000 #
+b1111101000 (
+b1111101000 ,
+#15
+bx !
+bx +
+1$
+#16
+0$
+0%
