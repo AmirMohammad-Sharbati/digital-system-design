@@ -24,8 +24,8 @@ module mul_16_tb ();
         @(posedge clk);
         reset = 0;
 
-        for (i = -32678; i < 32678; i = i + 411) begin 
-            for (j = -32678; j < 32678; j = j + 281) begin
+        for (i = -32768; i < 32768; i = i + 411) begin 
+            for (j = -32768; j < 32768; j = j + 281) begin
                 A = i; 
                 B = j; 
 
