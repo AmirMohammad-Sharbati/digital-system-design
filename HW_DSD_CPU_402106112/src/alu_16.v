@@ -7,7 +7,7 @@ module alu_16 (
 );
 
     // Internal states for multi-cycle operations
-    localparam IDLE = 0, MUL_WAIT = 1, DIV_WAIT = 2, DONE = 3;
+    localparam IDLE = 0, MUL_WAIT = 1, DIV_WAIT = 2;
     reg [1:0] state;
 
     // add/sub unit 
@@ -40,21 +40,49 @@ module alu_16 (
         end else begin
             case(state)
                 IDLE: begin
-                    
+                    done <= 0;
+                    if (start) begin
+                        case (opcode) 
+                            3'b000, 3'b001: begin
+                                result <= add_sub_result;
+                                done <= 1;
+                            end
+                            3'b010: begin
+                                mul_start <= 1;
+                                state <= MUL_WAIT;
+                            end
+                            3'b011: begin
+                                div_start <= 1;
+                                state <= DIV_WAIT;
+                            end
+                            default: begin // not to do
+                                result <= 16'sd0; 
+                                done <= 1;
+                            end
+                        endcase
+                    end
                 end
 
                 MUL_WAIT: begin
-                    
+                    mul_start <= 0;
+                    if (mul_done) begin
+                        result <= mul_result;
+                        done <= 1;
+                        state <= IDLE;
+                    end  
                 end
 
                 DIV_WAIT: begin
-                    
+                    div_start <= 0;
+                    if (div_done) begin
+                        result <= div_quotient;
+                        done <= 1;
+                        state <= IDLE;
+                    end
                 end
-
 
             endcase
         end 
     end
-
 
 endmodule
