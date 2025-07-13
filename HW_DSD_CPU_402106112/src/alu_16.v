@@ -15,7 +15,7 @@ module alu_16 (
     wire c_out;
     // If operation is subtract, we use two's complement of second operator
     wire signed [15:0] b_adder = (opcode == 3'b001) ? ~B + 1: B;
-    csa_16 add_sub (A, b_adder, 0, add_sub_result, c_out);
+    csa_16 add_sub (A, b_adder, 1'b0, add_sub_result, c_out);
 
     // multification unit
     reg mul_start;
@@ -27,7 +27,7 @@ module alu_16 (
     reg div_start;
     wire [15:0] div_quotient, div_remainder;
     wire div_done;
-    div_16 div (clk, reset, start, A, B, quotient, remainder, div_done);
+    div_16 div (clk, reset, div_start, A, B, div_quotient, div_remainder, div_done);
 
     // CONTROL LOGIC
     always @(posedge clk, posedge reset) begin

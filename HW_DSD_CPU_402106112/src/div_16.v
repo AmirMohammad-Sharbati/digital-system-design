@@ -20,17 +20,26 @@ module div_16 (
             counter <= 0;
             start_calc_flag <= 0;
         end else if (start && !start_calc_flag) begin
-            quotient <= 0;
-            remainder <= 0;
-            done <= 0;
-            counter <= 0;
-            // These are for negative numbers
-            abs_dividend <= (dividend[15]) ? -dividend : dividend;
-            abs_divisor <= (divisor[15]) ? -divisor : divisor;
-            sign_q <= dividend[15] ^ divisor[15];
-            sign_r <= dividend[15];
-            
-            start_calc_flag <= 1;
+            // At first check the zero division
+            if (divisor == 0) begin
+                quotient <= 0;
+                remainder <= 0;
+                done <= 1'b1;
+                start_calc_flag <= 0;
+            end else begin
+                quotient <= 0;
+                remainder <= 0;
+                done <= 0;
+                counter <= 0;
+
+                // These are for negative numbers
+                abs_dividend <= (dividend[15]) ? -dividend : dividend;
+                abs_divisor <= (divisor[15]) ? -divisor : divisor;
+                sign_q <= dividend[15] ^ divisor[15];
+                sign_r <= dividend[15];
+                
+                start_calc_flag <= 1; 
+            end
         end else if (start_calc_flag) begin
             if (counter == 16) begin
                 done <= 1'b1;

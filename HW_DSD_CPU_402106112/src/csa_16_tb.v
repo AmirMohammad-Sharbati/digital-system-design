@@ -4,7 +4,6 @@ module csa_16_tb ();
     wire signed [15:0] sum;
     wire c_out;
 
-
     csa_16 adder (A, B, c_in, sum, c_out);
 
     reg error_flag;

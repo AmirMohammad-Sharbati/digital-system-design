@@ -8,9 +8,7 @@ module div_16_tb ();
 
     always #1 clk = ~clk;
 
-    wire signed [15:0] exp_remainder, exp_quotient;
-    assign exp_remainder = dividend % divisor;
-    assign exp_quotient = dividend / divisor;
+    reg signed [15:0] exp_remainder, exp_quotient;
     reg error_flag;
     integer i, j;
     
@@ -27,7 +25,7 @@ module div_16_tb ();
         reset = 0;
 
         for (i = -32768; i < 32768; i = i + 337) begin 
-            for (j = -32768; j < 32768; j = j + 208) begin
+            for (j = -32768; j < 32768; j = j + 128) begin
                 dividend = i; 
                 divisor = j;
 
@@ -39,6 +37,15 @@ module div_16_tb ();
                 wait (done);
                 @(posedge clk); // small delay after done
 
+
+                if (divisor == 0) begin // Checking zero division is separate from other divisors 
+                    exp_quotient = 0;
+                    exp_remainder = 0;
+                end else begin
+                    exp_quotient = dividend / divisor;
+                    exp_remainder = dividend % divisor;
+                end
+
                 if (quotient !== exp_quotient || remainder !== exp_remainder) begin
                     $display("Error: dividend = %d , divisor = %d , exp_r = %d , r = %d , exp_q = %d, q = %d"
                         , dividend, divisor, exp_remainder, remainder, exp_quotient, quotient);
@@ -49,10 +56,9 @@ module div_16_tb ();
         end
 
         if (error_flag == 1) $display ("Errororrororororororor");
-        else $display (" ====== Good, the DIV code has no errors. ======"); // It tooks about 5 seconds        
+        else $display (" ====== Good, the DIV code has no errors. ======"); // It tooks about 7 seconds        
 
         $finish;
-
     end
 
 endmodule
