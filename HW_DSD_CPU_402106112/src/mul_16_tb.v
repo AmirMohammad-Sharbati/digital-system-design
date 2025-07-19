@@ -1,4 +1,6 @@
 module mul_16_tb ();
+    localparam CLK_PERIOD = 2;
+
     reg clk, start, reset;
     reg signed [15:0] A, B;
     wire signed [15:0] result;
@@ -6,7 +8,7 @@ module mul_16_tb ();
 
     karatsuba_mul_16 mul (clk, reset, start, A, B, result, done);
 
-    always #1 clk = ~clk; 
+    always #(CLK_PERIOD/2) clk = ~clk; 
     wire signed [15:0] exp;
     assign exp = A*B;
     reg error_flag;
@@ -21,21 +23,21 @@ module mul_16_tb ();
         clk = 0;
         reset = 1;
         start = 0;
-        @(posedge clk);
+        #CLK_PERIOD;
         reset = 0;
 
         for (i = -32768; i < 32768; i = i + 411) begin 
-            for (j = -32768; j < 32768; j = j + 281) begin
+            for (j = -32768; j < 32768; j = j + 256) begin
                 A = i; 
                 B = j; 
 
                 start = 1;
-                @(posedge clk);
+                #CLK_PERIOD;
                 start = 0;
 
                 // Wait for 'done' signal
                 wait (done);
-                @(posedge clk); // small delay after done
+                #CLK_PERIOD;// small delay after done
 
                 if (result !== exp) begin
                     $display("Error: A = %d , B = %d , exp = %d , result = %d ", A, B, exp, result);
@@ -45,7 +47,7 @@ module mul_16_tb ();
         end
 
         if (error_flag == 1) $display ("Errororrororororororor");
-        else $display (" ====== Fortunately, the MUL code has no errors. ======"); // It tooks about 6 seconds
+        else $display (" ====== Fortunately, the MUL code has no errors. ======"); // It tooks about 4 seconds
         
         $finish;
     end

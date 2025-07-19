@@ -6,7 +6,6 @@ module shift_and_add_mul_8 (
     reg [15:0] product, A_shift;
     reg [7:0] B_shift;
     reg start_calc_flag;
-    
 
     always @(posedge clk, posedge reset) begin
         if (reset) begin
@@ -34,7 +33,7 @@ module shift_and_add_mul_8 (
                 start_calc_flag <= 0;
                 result <= product;
             end
-        end else done <= 0;
+        end
     end
 endmodule
 
@@ -46,71 +45,27 @@ module karatsuba_mul_16 (
     output reg done
 );
     
-    reg[2:0] state;
-    reg [15:0] z0, z1, z2;
+    wire [15:0] z0, z2, z3;
+    wire z0_done, z1_done, z2_done;
+    reg active;
 
-    wire [15:0] partial_result;
-    wire mul_done;
-    reg mul_start;
-    reg [7:0] mul_A, mul_B;
-
-    shift_and_add_mul_8 mul_unit (clk, reset, mul_start, mul_A, mul_B, partial_result, mul_done);
+    shift_and_add_mul_8 z0_unit (clk, reset, start, A[7:0], B[7:0], z0, z0_done);
+    shift_and_add_mul_8 z2_unit (clk, reset, start, A[15:8], B[15:8], z2, z2_done);
+    shift_and_add_mul_8 z1_unit (clk, reset, start, A[15:8] + A[7:0], B[15:8] + B[7:0], z3, z1_done);
     
     always @(posedge clk, posedge reset) begin
-        if(reset) begin
-            state <= 0;
+        if (reset) begin
             done <= 0;
             result <= 0;
-            mul_start <= 0;
-        end else begin
-            case (state)
-                0: begin
-                    if (start) begin
-                        done <= 0;
-                        result <= 0;
-                        mul_A <= A[7:0];
-                        mul_B <= B[7:0];
-                        mul_start <= 1;
-                        state <= 1;  // z0
-                    end
-                end
-                
-                1 : begin
-                    mul_start <= 0;
-                    if (mul_done) begin
-                        z0 <= partial_result;
-                        mul_A <= A[15:8];
-                        mul_B <= B[15:8];
-                        mul_start <= 1;
-                        state <= 2;  // z2
-                    end
-                end 
-
-                2: begin
-                    mul_start <= 0;
-                    if (mul_done) begin
-                        z2 <= partial_result;
-                        mul_A <= A[15:8] + A[7:0];
-                        mul_B <= B[15:8] + B[7:0];
-                        mul_start <= 1;
-                        state <= 3;  
-                    end
-                end
-
-                3: begin
-                    mul_start <= 0;
-                    if (mul_done) begin
-                        z1 <= partial_result - (z0 + z2);
-                        state <= 4;
-                    end
-                end
-                
-                4: begin // Final computation
-                    result <= (z2 <<< 16) + (z1 <<< 8) + z0;
-                    done <= 1;
-                    state <= 0;
-                end
-            endcase
-        end
+            active <= 0;
+        end else if (start) begin
+            done <= 0;
+            result <= 0;
+            active <= 1;
+        end else if (active && z0_done && z1_done && z2_done) begin
+            result <= (z2 <<< 16) + ((z3 - (z0 + z2)) <<< 8) + z0;
+            done <= 1;
+            active <= 0;
+        end else done <= 0;
     end
 endmodule

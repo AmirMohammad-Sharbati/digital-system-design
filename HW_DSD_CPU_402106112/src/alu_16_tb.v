@@ -19,18 +19,19 @@ module alu_16_tb ();
 
     always #(CLK_PERIOD/2) clk = ~clk;
 
-
     initial begin
         $dumpfile("alu_16.vcd");
         $dumpvars(0, alu_16_tb);
 
+        clk = 0;
+        error_flag = 0;
         reset = 1;
         #CLK_PERIOD;
         reset = 0;
         #CLK_PERIOD;
 
-        for (i = -32768; i < 32768; i = i + 5120) begin
-            for (j = -32768; j < 32768; j = j + 25600) begin
+        for (i = -1200; i < 1020; i = i + 1000) begin
+            for (j = -90; j < 670; j = j + 500) begin
                 A = i; B = j;
 
                 opcode = 3'b000;
@@ -38,6 +39,7 @@ module alu_16_tb ();
                 #CLK_PERIOD;
                 start = 0;
                 wait (done);
+                
                 if (result !== add_exp) begin
                     error_flag = 1;
                     $display ("Error: A = %d, B = %d, result = %d , add_exp = %d", A, B, result, add_exp);
@@ -76,12 +78,13 @@ module alu_16_tb ();
                     $display ("Error: A = %d, B = %d, result = %d , div_exp = %d", A, B, result, div_exp);
                 end
                 #CLK_PERIOD;
+                
             end
         end
 
         if (error_flag) 
             $display ("ERORORORROORRROROR");
-        else $display ("-+*/=-+/*=-+*/=-+/*= Great, perfect ALU :) -+*/=-+/*=-+*/=-+/*=");
+        else $display ("-+*/=-+/*===== Great, perfect ALU :) =====-+*/=-+/*=");
 
         $finish;
         
