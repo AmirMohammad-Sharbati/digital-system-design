@@ -7,14 +7,14 @@ module alu_16 (
 );
 
     // Internal states for multi-cycle operations
-    localparam IDLE = 0, MUL_WAIT = 1, DIV_WAIT = 2;
+    localparam IDLE = 0, ADD_SUB_WAIT = 1, MUL_WAIT = 2, DIV_WAIT = 3;
     reg [1:0] state;
 
     // add/sub unit 
     wire [15:0] add_sub_result;
     wire c_out;
     // If operation is subtract, we use two's complement of second operator
-    wire signed [15:0] b_adder = (opcode == 3'b001) ? ~B + 1: B;
+    wire signed [15:0] b_adder = (opcode == 3'b001) ? (~B + 1) : B;
     csa_16 add_sub (A, b_adder, 1'b0, add_sub_result, c_out);
 
     // multification unit
@@ -43,10 +43,7 @@ module alu_16 (
                     done <= 0;
                     if (start) begin
                         case (opcode) 
-                            3'b000, 3'b001: begin
-                                result <= add_sub_result;
-                                done <= 1;
-                            end
+                            3'b000, 3'b001: state <= ADD_SUB_WAIT;
                             3'b010: begin
                                 mul_start <= 1;
                                 state <= MUL_WAIT;
@@ -61,6 +58,12 @@ module alu_16 (
                             end
                         endcase
                     end
+                end
+
+                ADD_SUB_WAIT: begin
+                    result <= add_sub_result;
+                    done <= 1;
+                    state <= IDLE;
                 end
 
                 MUL_WAIT: begin

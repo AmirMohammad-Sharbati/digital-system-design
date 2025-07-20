@@ -11,7 +11,7 @@ module alu_16_tb ();
     wire signed [15:0] add_exp = A + B;
     wire signed [15:0] sub_exp = A - B;
     wire signed [15:0] mul_exp = A * B;
-    wire signed [15:0] div_exp = A / B;
+    wire signed [15:0] div_exp = (B !== 0) ? A / B : 0; // I suppose that if the divisor is zero, so the result will be zero :)
 
     reg error_flag;
 
@@ -30,8 +30,8 @@ module alu_16_tb ();
         reset = 0;
         #CLK_PERIOD;
 
-        for (i = -1200; i < 1020; i = i + 1000) begin
-            for (j = -90; j < 670; j = j + 500) begin
+        for (i = -32768; i < 32768; i = i + 814) begin
+            for (j = -32768; j < 32768; j = j + 512) begin
                 A = i; B = j;
 
                 opcode = 3'b000;
@@ -39,7 +39,6 @@ module alu_16_tb ();
                 #CLK_PERIOD;
                 start = 0;
                 wait (done);
-                
                 if (result !== add_exp) begin
                     error_flag = 1;
                     $display ("Error: A = %d, B = %d, result = %d , add_exp = %d", A, B, result, add_exp);
@@ -84,7 +83,7 @@ module alu_16_tb ();
 
         if (error_flag) 
             $display ("ERORORORROORRROROR");
-        else $display ("-+*/=-+/*===== Great, perfect ALU :) =====-+*/=-+/*=");
+        else $display ("-+*/=-+/*===== Great, perfect ALU :) =====-+*/=-+/*="); // It tooks less than 4 seconds to complete test
 
         $finish;
         
