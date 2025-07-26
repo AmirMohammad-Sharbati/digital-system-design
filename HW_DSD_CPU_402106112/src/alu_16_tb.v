@@ -30,7 +30,7 @@ module alu_16_tb ();
         reset = 0;
         #CLK_PERIOD;
 
-        for (i = -32768; i < 32768; i = i + 814) begin
+        for (i = -32768; i < 32768; i = i + 813) begin
             for (j = -32768; j < 32768; j = j + 512) begin
                 A = i; B = j;
 
