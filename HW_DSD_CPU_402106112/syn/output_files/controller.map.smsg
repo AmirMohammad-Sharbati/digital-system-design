@@ -1,0 +1,2 @@
+Warning (10268): Verilog HDL information at mul_16.v(10): always construct contains both blocking and non-blocking assignments
+Warning (10268): Verilog HDL information at div_16.v(15): always construct contains both blocking and non-blocking assignments
