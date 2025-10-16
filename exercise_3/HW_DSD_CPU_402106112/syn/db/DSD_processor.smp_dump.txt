@@ -1,0 +1,21 @@
+
+State Machine - |controller|state
+Name state.DONE state.WRITE_BACK state.ALU_WAIT state.LOAD_WAIT_2 state.LOAD_WAIT_1 state.EXECUTION state.READ_REGISTER_FILE state.DECODE state.FETCH_WAIT_2 state.FETCH_WAIT_1 state.FETCH 
+state.FETCH 0 0 0 0 0 0 0 0 0 0 0 
+state.FETCH_WAIT_1 0 0 0 0 0 0 0 0 0 1 1 
+state.FETCH_WAIT_2 0 0 0 0 0 0 0 0 1 0 1 
+state.DECODE 0 0 0 0 0 0 0 1 0 0 1 
+state.READ_REGISTER_FILE 0 0 0 0 0 0 1 0 0 0 1 
+state.EXECUTION 0 0 0 0 0 1 0 0 0 0 1 
+state.LOAD_WAIT_1 0 0 0 0 1 0 0 0 0 0 1 
+state.LOAD_WAIT_2 0 0 0 1 0 0 0 0 0 0 1 
+state.ALU_WAIT 0 0 1 0 0 0 0 0 0 0 1 
+state.WRITE_BACK 0 1 0 0 0 0 0 0 0 0 1 
+state.DONE 1 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - |controller|alu_16:alu|state
+Name state.DIV_WAIT state.MUL_WAIT state.ADD_SUB_WAIT state.IDLE 
+state.IDLE 0 0 0 0 
+state.ADD_SUB_WAIT 0 0 1 1 
+state.MUL_WAIT 0 1 0 1 
+state.DIV_WAIT 1 0 0 1 
