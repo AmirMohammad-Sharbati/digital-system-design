@@ -1,7 +1,0 @@
-module SR_FF (input S, R, CLK, output Q, Q');
-	and(a, S, CLK);
-	and(b, R, CLK);
-	assign Q' = not(Q);
-	Q <= nor(b, Q');
-	Q' <= nor(a, Q);
-endmodule

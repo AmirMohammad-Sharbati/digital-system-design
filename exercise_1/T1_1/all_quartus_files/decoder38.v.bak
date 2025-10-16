@@ -1,1 +1,0 @@
-module Decoder38(input a2, a1, a0, output reg q7, q6, q5, q4, q3, q2, q1, q0);
