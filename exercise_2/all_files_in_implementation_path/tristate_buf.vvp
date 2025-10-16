@@ -1,0 +1,32 @@
+#! /c/Source/iverilog-install/bin/vvp
+:ivl_version "12.0 (devel)" "(s20150603-1539-g2693dd32b)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "C:\iverilog\lib\ivl\system.vpi";
+:vpi_module "C:\iverilog\lib\ivl\vhdl_sys.vpi";
+:vpi_module "C:\iverilog\lib\ivl\vhdl_textio.vpi";
+:vpi_module "C:\iverilog\lib\ivl\v2005_math.vpi";
+:vpi_module "C:\iverilog\lib\ivl\va_math.vpi";
+S_000002515acf29c0 .scope module, "tristate_buf" "tristate_buf" 2 1;
+ .timescale 0 0;
+    .port_info 0 /INPUT 8 "data_in";
+    .port_info 1 /INPUT 1 "oe";
+    .port_info 2 /INOUT 8 "bi_data";
+P_000002515ad250b0 .param/l "N" 0 2 1, +C4<00000000000000000000000000001000>;
+o000002515ad26fd8 .functor BUFZ 8, C4<zzzzzzzz>; HiZ drive
+; Elide local net with no drivers, v000002515ad26d80_0 name=_ivl_0
+v000002515acf3300_0 .net *"_ivl_2", 7 0, L_000002515ad23280;  1 drivers
+o000002515ad27038 .functor BUFZ 8, C4<zzzzzzzz>; HiZ drive
+v000002515acf2b50_0 .net "bi_data", 7 0, o000002515ad27038;  0 drivers
+v000002515acf2bf0_0 .net "bi_date", 0 0, L_000002515ad23320;  1 drivers
+o000002515ad27098 .functor BUFZ 8, C4<zzzzzzzz>; HiZ drive
+v000002515acf2c90_0 .net "data_in", 7 0, o000002515ad27098;  0 drivers
+o000002515ad270c8 .functor BUFZ 1, C4<z>; HiZ drive
+v000002515acf2d30_0 .net "oe", 0 0, o000002515ad270c8;  0 drivers
+L_000002515ad23280 .functor MUXZ 8, o000002515ad26fd8, o000002515ad27098, o000002515ad270c8, C4<>;
+L_000002515ad23320 .part L_000002515ad23280, 0, 1;
+# The file index is used to find the file name in the following table.
+:file_names 3;
+    "N/A";
+    "<interactive>";
+    "tristate_buf.v";

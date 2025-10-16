@@ -1,0 +1,8 @@
+db/
+incremental_db/
+*.rpt
+*.sof
+*.pof
+*.vcd
+*.tmp
+~$*
