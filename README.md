@@ -1,9 +1,9 @@
 # 💻 Digital System Design Coursework - Sharif University of Technology
 
-https://img.shields.io/badge/Verilog-HDL-orange.svg
-https://img.shields.io/badge/License-MIT-blue.svg
-https://img.shields.io/badge/Simulator-Icarus_Verilog-green.svg
-https://img.shields.io/badge/Waveform_Viewer-GTKWave-lightgrey.svg
+![Language](https://img.shields.io/badge/Verilog-HDL-orange)
+![License](https://img.shields.io/badge/License-MIT-blue)
+![Simulator](https://img.shields.io/badge/Simulator-Icarus_Verilog-green)
+![Waveform](https://img.shields.io/badge/Waveform_Viewer-GTKWave-lightgrey)
 
 This repository contains my coursework for the **Digital System Design (DSD)** course taken during the Spring 2025 (Semester 4) at **Sharif University of Technology (SUT)**.  
 All implementations are written in **Verilog HDL**, accompanied by appropriate **testbenches** for simulation and verification.
@@ -11,30 +11,23 @@ All implementations are written in **Verilog HDL**, accompanied by appropriate *
 
 
 ## 📁 Repository Structure 
-The repository is organized by exercise number:
-.
-├── `exercise_1/`
-│   ├── `images_1/`
-│   ├── `images_2/`
-│   ├── `images_3/`
-│   ├── `verilog_codes_1/`
-│   ├── `verilog_codes_2/`
-│   ├── `verilog_codes_3/`
-|   ├── `description_1.pdf`
-|   ├── `explanation.pdf`
+The repository is organized into three main directories, each corresponding to one of the course exercises.  
+Each exercise folder contains source files, testbenches, and supporting materials such as reports or scripts.
 
-├── `exercise_2/`
-│   ├── `verilog_codes/`
-│   ├── `docs/`
-│   ├── `description_2.pdf`
-│   ├── `diagram.py`
+1. `exercise_1/`   
+    - `verilog_codes_1/`  
+    - `verilog_codes_2/`  
+    - `verilog_codes_3/`  
 
-└── `exercise_3/`
-|    ├── `syn/`
-|    ├── `verilog_codes/`
-|    ├── `description_3.pdf`
-|    ├── `explanation.pdf`
+2. `exercise_2/`  
+    - `verilog_codes/`  
+    - `diagram.py`  
+  
+3. `exercise_3/`  
+    - `syn/`  
+    - `verilog_codes/`  
 
+Each exercise directory includes a `description_X.pdf` file that contains the problem statements and requirements for that task.
 
 
 ## 📘 Content Overview 
@@ -64,6 +57,7 @@ It combined **gate-level modeling** for fundamental arithmetic modules with **be
 - **ALU** (`alu.v`) — Integrates adder, subtractor, multiplier, and divider modules into a single arithmetic logic unit.  
 - **Register File** and **Memory** — Modeled for data storage and instruction handling.  
 - **Controller (Top-Level Module)** — Coordinates the datapath and control signals to implement basic processor operations.  
+
 Each module was tested using dedicated Verilog testbenches, ensuring correctness.  
 The `syn/` directory contains the synthesized results of this design.  
 The processor implementation is fully synthesizable, meaning it follows structural and behavioral conventions suitable for hardware realization on FPGA or ASIC platforms.
@@ -128,9 +122,9 @@ end
 ### 4. Quartus (Optional - for synthesis)
 Although not required for simulation in this course, Intel Quartus Prime can be used to synthesize and analyze your Verilog designs from exercise 3.
 
-**Download** app from Official Intel link:
-🔗 https://www.intel.com/content/www/us/en/software/programmable/quartus-prime/download.html
-**Recommended edition**: Quartus Prime Lite Edition (free version) -> Works on Windows and Linux
+**Download** app from Official Intel link:  
+🔗 https://www.intel.com/content/www/us/en/software/programmable/quartus-prime/download.html  
+**Recommended edition**: Quartus Prime Lite Edition (free version) -> Works on Windows and Linux.  
 **Installation Notes**  
 During installation, you can choose the FPGA family (e.g., Cyclone V) - any basic family works for functional synthesis.  
 Add Quartus binary folder to your PATH if you want to run it from terminal.
