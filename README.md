@@ -14,9 +14,9 @@ All implementations are written in **Verilog HDL**, accompanied by appropriate *
 The repository is organized by exercise number:
 .
 ├── `exercise_1/`
-│   ├── `images_1`
-│   ├── `images_2`
-│   ├── `images_3`
+│   ├── `images_1/`
+│   ├── `images_2/`
+│   ├── `images_3/`
 │   ├── `verilog_codes_1/`
 │   ├── `verilog_codes_2/`
 │   ├── `verilog_codes_3/`
@@ -27,7 +27,7 @@ The repository is organized by exercise number:
 │   ├── `verilog_codes/`
 │   ├── `docs/`
 │   ├── `description_2.pdf`
-│   ├── `diagram.py/`
+│   ├── `diagram.py`
 
 └── `exercise_3/`
 |    ├── `syn/`
@@ -37,24 +37,36 @@ The repository is organized by exercise number:
 
 
 
-## Content Overview 
-The codebase includes module implementations and testbenches for **three exercises**:  
+## 📘 Content Overview 
+The codebase includes Verilog module implementations and corresponding testbenches for **three main exercises**, progressively increasing in complexity and design scope.
+
 ### Exercise 1: Fundamental Logic Blocks
-This exercise covered the design and implementation of basic digital logic components. This exercise has three questions:
-1. Implementation of decoder 3-8 using decoder 2-8 which should be implemented by continious assignments instructions. 
-1. In the second question we should describe the circuit which is SR flip flop by Verilog and test it.
-1. We should test and debug the provided 8 bit multiply algorithm code in the questions.
+This exercise covered the design and implementation of basic digital logic components. It consisted of three independent questions:
+1. Implementation of a **3-to-8 decoder** using a hierarchical structure built from 2-to-4 decoders.
+1. Description and verification of an **SR flip-flop** (Set-Reset) circuit in Verilog.
+1. Debugging, testing, and verification of a provided **8-bit multiplication** algorithm.
 
 ### Exercise 2: Bus Architecture Implementation and Analysis
-This exercise focused on the design and analysis of data bus structures, emphasizing different implementation methods and timing considerations. We have three parts which despite previous exercise are related:
-- We implement the N bit bus with two ways: tri-state buffer and multiplexer. Then we compare implementaions with given delays. This is done by setting delays in the code. At the end we should draw diagram which I use python script for it.
+This exercise explored the design of **shared data bus architectures**, emphasizing multiple implementation strategies and delay analysis.  
+Unlike the previous exercise, the three parts of this assignment were interrelated.  
+- The goal was to design an **N-bit shared bus** using two different methods:  
+    1. **Tri-state buffer approach**
+    1. **Multiplexer-based approach**
+- The implementations were compared by introducing explicit signal delays in Verilog and analyzing the resulting timing differences.
+- A **Python script** was used to generate and visualize the final timing and structural diagrams, illustrating propagation delay and signal control across the two bus architectures.
 
-### Exercise 3: 8-bit Simple Processor Design (Project)
-This was the main project, involving the architectural design and implementation of a simplified 8-bit processor. The design utilizes a mix of gate-level and behavioral modeling. This is very good and complete exercise for boosting Verilog coding skills.
-In this exercise I implement the modules of adder/subtractor in the file csa_16. This file implemented in the gate level modeling approach. Then we should implement mul and div circuits. I gather all these three files in the alu file. Besides, we should implement the memory and register file. at the end for these modules and data path, we should implement the controller which is top level module. This is final circuit and main one. 
-For all files (which may be one or more modules), I implement the test bench.
-In the `syn/` folder the synthesized files are placed. This code is synthesizable means it is near to state that can be phisically implemented.
-
+### Exercise 3: 8-bit Simple Processor Design
+This was the main project of the course, involving the architectural design and Verilog implementation of a simplified **8-bit processor**.  
+It combined **gate-level modeling** for fundamental arithmetic modules with **behavioral modeling** for higher-level system components.  
+**Main components implemented:**  
+- **Adder/Subtractor** (`csa_16.v`) — Designed using gate-level modeling for precise logic-level representation.  
+- **Multiplier** and **Divider** — Implemented behaviorally to extend the arithmetic unit capabilities.  
+- **ALU** (`alu.v`) — Integrates adder, subtractor, multiplier, and divider modules into a single arithmetic logic unit.  
+- **Register File** and **Memory** — Modeled for data storage and instruction handling.  
+- **Controller (Top-Level Module)** — Coordinates the datapath and control signals to implement basic processor operations.  
+Each module was tested using dedicated Verilog testbenches, ensuring correctness.  
+The `syn/` directory contains the synthesized results of this design.  
+The processor implementation is fully synthesizable, meaning it follows structural and behavioral conventions suitable for hardware realization on FPGA or ASIC platforms.
 
 
 ## 🛠️ Tools and Technologies
@@ -120,7 +132,6 @@ Although not required for simulation in this course, Intel Quartus Prime can be 
 **Installation Notes**  
 During installation, you can choose the FPGA family (e.g., Cyclone V) - any basic family works for functional synthesis.  
 Add Quartus binary folder to your PATH if you want to run it from terminal.
-
 
 
 
