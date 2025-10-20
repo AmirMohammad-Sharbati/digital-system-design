@@ -1,4 +1,4 @@
-# 💻 Digital System Design Coursework - Sharif University of Technology
+# 💻 Digital System Design Coursework - SUT
 
 ![Language](https://img.shields.io/badge/Verilog-HDL-orange)
 ![License](https://img.shields.io/badge/License-MIT-blue)
@@ -12,7 +12,7 @@ All implementations are written in **Verilog HDL**, accompanied by appropriate *
 
 ## 📁 Repository Structure 
 The repository is organized into three main directories, each corresponding to one of the course exercises.  
-Each exercise folder contains source files, testbenches, and supporting materials such as reports or scripts.
+Each exercise folder contains **Verilog source codes**, **testbenches**, and supporting materials such as reports or scripts.
 
 1. `exercise_1/`   
     - `verilog_codes_1/`  
@@ -24,10 +24,11 @@ Each exercise folder contains source files, testbenches, and supporting material
     - `diagram.py`  
   
 3. `exercise_3/`  
-    - `syn/`  
     - `verilog_codes/`  
 
-Each exercise directory includes a `description_X.pdf` file that contains the problem statements and requirements for that task.
+Each exercise directory (or subdirectory) includes:  
+- `description_X.pdf` — the official problem statement and task definitions provided by the course
+- `explanations.pdf` — a detailed report containing circuit design explanations, Verilog implementation details, simulation results, and discussion of challenges
 
 
 ## 📘 Content Overview 
@@ -48,30 +49,29 @@ Unlike the previous exercise, the three parts of this assignment were interrelat
 - The implementations were compared by introducing explicit signal delays in Verilog and analyzing the resulting timing differences.
 - A **Python script** was used to generate and visualize the final timing and structural diagrams, illustrating propagation delay and signal control across the two bus architectures.
 
-### Exercise 3: 8-bit Simple Processor Design
-This was the main project of the course, involving the architectural design and Verilog implementation of a simplified **8-bit processor**.  
+### Exercise 3: 16-bit Simple Processor Design
+This was the main project of the course, involving the architectural design and Verilog implementation of a simplified **16-bit processor**.  
 It combined **gate-level modeling** for fundamental arithmetic modules with **behavioral modeling** for higher-level system components.  
 **Main components implemented:**  
 - **Adder/Subtractor** (`csa_16.v`) — Designed using gate-level modeling for precise logic-level representation.  
-- **Multiplier** and **Divider** — Implemented behaviorally to extend the arithmetic unit capabilities.  
-- **ALU** (`alu.v`) — Integrates adder, subtractor, multiplier, and divider modules into a single arithmetic logic unit.  
-- **Register File** and **Memory** — Modeled for data storage and instruction handling.  
-- **Controller (Top-Level Module)** — Coordinates the datapath and control signals to implement basic processor operations.  
+- **Multiplier** (`mul_16.v`) and **Divider** (`div_16.v`) — Implemented behaviorally to extend the arithmetic unit capabilities.  
+- **ALU** (`alu_16.v`) — Integrates adder, subtractor, multiplier, and divider modules into a single arithmetic logic unit.  
+- **Register File** (`register_file.v`) and **Memory** (`memory.v`) — Modeled for data storage and instruction handling.  
+- **Controller** (`controller.v` - **Top-Level Module**) — Coordinates the datapath and control signals to implement basic processor operations.  
 
-Each module was tested using dedicated Verilog testbenches, ensuring correctness.  
-The `syn/` directory contains the synthesized results of this design.  
+Each module was tested using dedicated Verilog testbenches, ensuring correctness.   
 The processor implementation is fully synthesizable, meaning it follows structural and behavioral conventions suitable for hardware realization on FPGA or ASIC platforms.
 
 
 
 ## 🛠️ Tools and Technologies
-The projects are implemented using **Verilog HDL** and cover fundamental concepts. The simulations are primarily performed using **Icarus Verilog** and analyzed with **GTKWave**.
+The projects are implemented using **Verilog HDL**. The simulations are primarily performed using **Icarus Verilog** and analyzed with **GTKWave**.
 
-- Hardware Description Language (HDL): Verilog
-- Simulation Tool: Icarus Verilog
-- Synthesis Tool: Quartus (Used in exercise 3)
-- Waveform viewer: GTKWave 
-- Scripting: Python (Used in exercise 2 for delay analysis)
+- Hardware Description Language (HDL): **Verilog**
+- Simulation Tool: **Icarus Verilog**
+- Waveform viewer: **GTKWave** 
+- Synthesis Tool: **Quartus** (Used in exercise 3)
+- Scripting: **Python** (Used in exercise 2 for delay analysis)
 
 
 
@@ -80,9 +80,8 @@ Before running simulations or synthesizing designs, make sure the following tool
 All are free and cross-platform (Linux, Windows, macOS).
 
 ### 1. Verilog
-Verilog itself is a hardware description language - you only need a **compiler/simulator** to work with it (such as Icarus Verilog or ModelSim).
-If you're editing Verilog code, you can use **VS Code** with extensions
-You don't install Verilog as a separate tool - you just use it through simulators or synthesis software like Icarus or Quartus.
+Verilog itself is a hardware description language - you only need a **compiler/simulator** to work with it (such as Icarus Verilog or ModelSim).  
+If you're editing Verilog code, you can use **VS Code** with extensions.
 
 ### 2. Icarus
 Icarus Verilog (iverilog) is an open-source Verilog simulator used in this course for all experiments and testbenches:  
@@ -122,13 +121,15 @@ end
 ### 4. Quartus (Optional - for synthesis)
 Although not required for simulation in this course, Intel Quartus Prime can be used to synthesize and analyze your Verilog designs from exercise 3.
 
-**Download** app from Official Intel link:  
-🔗 https://www.intel.com/content/www/us/en/software/programmable/quartus-prime/download.html  
-**Recommended edition**: Quartus Prime Lite Edition (free version) -> Works on Windows and Linux.  
-**Installation Notes**  
-During installation, you can choose the FPGA family (e.g., Cyclone V) - any basic family works for functional synthesis.  
-Add Quartus binary folder to your PATH if you want to run it from terminal.
+- **Download** app from Official Intel link:  
+  🔗 https://www.intel.com/content/www/us/en/software/programmable/quartus-prime/download.html  
+- **Recommended edition**: Quartus Prime Lite Edition (free version)  
 
+⚠️ **Note**: Quartus Prime is a large software suite (several GB).  
+Installation may take considerable time and disk space, so it’s recommended only if you intend to perform actual synthesis or FPGA implementation.
+
+✅ **Summary**:
+You don’t need Quartus for running the provided testbenches — **Icarus Verilog** + **GTKWave** is sufficient for all functional simulations in this repository.
 
 
 ## ⚙️ How to run / simulate 
@@ -170,8 +171,7 @@ gtkwave shift_rotate_2.vcd
 
 
 ### Synthesizable Processor (Exercise 3)
-The codes located in `exercise_3/verilog_codes/` directory are designed to be **synthesizable**. 
-While Icarus Verilog is used for functional simulation, tools like **Quartus** would be used for actual synthesis into a gate-level netlist. The simulation commands remain the same, but the code structure emphasizes synthesizable constructs.
+The designs in `exercise_3/verilog_codes/` follow synthesizable Verilog conventions and can be tested using Icarus Verilog or synthesized in tools like **Intel Quartus Prime**.
 
 #### Synthesis Workflow (Quartus Example)
 1. Open Quartus.
@@ -200,10 +200,9 @@ This repository is licensed under the **MIT License**. See `LICENSE` file for th
 
 
 ## 📝 About the Author
-This repository was developed by **Amir Mohammad Sharbati** as part of the academic requirements for the DSD course at SUT.  
-- University: Sharif University of Technology (SUT)
-- Semester: Spring 2025  
-#### Note on Contributors:
-The GitHub repository may display an additional contributor labeled `github-classroom[bot]`.  
-This account is part of the GitHub Classroom infrastructure used by the class to distribute assignment templates.
-Only the initial skeleton commit was generated automatically by this bot — **all subsequent code, implementations, and documentation were created solely by Amir Mohammad Sharbati.**
+This repository was developed by **Amir Mohammad Sharbati** as part of the **Digital System Design (DSD)** course at **Sharif University of Technology (SUT).** 
+
+**Note on Contributors:**  
+You may see another contributor listed as `github-classroom[bot]`.  
+This account belongs to **GitHub Classroom**, which was used by the university to share assignment templates.  
+Only the very first commit was uploaded automatically by this bot — **all other code, implementations, and documentation were written entirely by Amir Mohammad Sharbati.**
